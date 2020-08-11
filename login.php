@@ -1,9 +1,6 @@
 <?php
 	$uname="";
 	$password="";
-	$err_uname="";
-	$err_password="";
-	$has_error=false;
 	if(isset($_POST["Login"]))
 	{
         $uname=$_POST["uname"];
@@ -16,7 +13,7 @@
 			
 		$conn = mysqli_connect($servername,$username,$pass,$dbname);
 			
-		$query = "SELECT * FROM users WHERE username='$uname' and pass='$password'";
+		$query = "SELECT * FROM users WHERE userName='$uname' and pass='$password'";
 			
 		$result = mysqli_query($conn,$query);
 			
@@ -25,6 +22,8 @@
 				
 			if($var["type"] == "admin"){
 				header("Location: admin_home.php");
+				setcookie("Loggedinuser",$uname,time()+60);
+				setcookie("type",$var["type"],time()+60);
 			}
 			else if($var["type"] == "user"){
 				header("Location: user_home.php");
@@ -51,16 +50,28 @@
 		<title>LoginFrom</title>
 	</head>
 	<body>
+
+		<table>
+            <tr>
+                <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
+            	<td><a href = "index.php">Home</a></td>
+                <td>Services</td>
+                <td>Contact</td>
+                <td><a href = "login.php">Login</a></td>
+                <td><a href = "Registration.php">Singup</a></td>
+            </tr>
+        </table>
+
 		<h2>Login Form</h2>
 		<form action="" method="post">
 			<table>
 				<tr>
 					<td><span>Username:</span></td>
-					<td><input type="text" name="uname"value="<?php echo $uname; ?>" required> <?php echo $err_uname; ?> </td>
+					<td><input type="text" name="uname"value="<?php echo $uname; ?>" required></td>
 				</tr>
 				<tr>
 					<td><span>Password:</span></td>
-					<td><input type="text" name="password"value="<?php echo $password; ?>" required> <?php echo $err_password; ?> </td>
+					<td><input type="text" name="password"value="<?php echo $password; ?>" required></td>
 				</tr>
 				<tr>
 					<td><label style= "color:red"><a href = "forgotpass.php">Forgot password?</a></label></td>
