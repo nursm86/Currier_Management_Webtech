@@ -6,7 +6,7 @@
             <table>
                 <tr>
                     <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
-                    <td><a href = "admin_home.php">Dashboard</a></td>
+                    <td bgcolor= "lightgreen"><a href = "admin_home.php">Dashboard</a></td>
                     <td><a href = "add_branch.php">Add Branch</a></td>
                     <td><a href = "all_branch.php">All Branch</a></td>
 					<td><a href = "workerlist.php">worker List</a></td>
@@ -15,5 +15,6 @@
                     <td><a href = "index.php">Logout</a></td>
                 </tr>
             </table>
+            Welcome <?php echo $_COOKIE["Loggedinuser"]; ?>(ADMIN)
     </body>
 </html>

@@ -1,0 +1,14 @@
+<?php
+                $db = mysqli_connect("localhost", "root", "","webtech_db");
+                $sql = "SELECT * FROM users WHERE type = 'employee'";
+                $verify = mysqli_query($db, $sql);
+
+                
+                while($var = mysqli_fetch_assoc($verify)){
+                    echo "<tr>";
+                    echo "<td>".$var['name']."</td>";
+                    echo "<td>".$var['email']."</td>";
+                    echo "</tr>";
+                }
+                
+            ?>

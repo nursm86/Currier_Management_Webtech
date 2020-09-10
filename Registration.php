@@ -66,7 +66,7 @@
                 <td>Services</td>
                 <td>Contact</td>
                 <td><a href = "login.php">Login</a></td>
-                <td><a href = "Registration.php">Singup</a></td>
+                <td bgcolor = "lightgreen"><a href = "Registration.php">Singup</a></td>
             </tr>
         </table>
 

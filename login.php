@@ -20,18 +20,18 @@
 		if(mysqli_num_rows($result)){
 			$var = mysqli_fetch_assoc($result);
 				
-			if($var["type"] == "admin"){
+			if($var["type"] == "0"){
 				header("Location: admin_home.php");
 				setcookie("Loggedinuser",$uname,time()+60);
 				setcookie("type",$var["type"],time()+60);
 			}
-			else if($var["type"] == "user"){
-				header("Location: user_home.php");
+			else if($var["type"] == "2"){
+				header("Location: customer_home.php");
 				setcookie("Loggedinuser",$uname,time()+60);
 				setcookie("type",$var["type"],time()+60);
             }
-            else if($var["type"] == "employee"){
-				header("Location: emoployee_home.php");
+            else if($var["type"] == "1"){
+				header("Location: employee_home.php");
 				setcookie("Loggedinuser",$uname,time()+60);
 				setcookie("type",$var["type"],time()+60);
 			}
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<td><span>Password:</span></td>
-					<td><input type="text" name="password"value="<?php echo $password; ?>" required></td>
+					<td><input type="password" name="password"value="<?php echo $password; ?>" required></td>
 				</tr>
 				<tr>
 					<td><label style= "color:red"><a href = "forgotpass.php">Forgot password?</a></label></td>
