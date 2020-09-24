@@ -1,72 +1,66 @@
-<html>
-    <head>
-        <title>Admin Home</title>
-    </head>
-    <body>
-            <table>
-                <tr>
-                    <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
-                    <td><a href = "admin_home.php">Dashboard</a></td>
-                    <td><a href = "add_branch.php">Add Branch</a></td>
-                    <td><a href = "all_branch.php">All Branch</a></td>
-					<td><a href = "workerlist.php">worker List</a></td>
-                    <td bgcolor = "lightgreen"><a href = "add_Worker.php">Add Worker</a></td>
-					<td><a href = "solve_problem.php">solve worker problem</a></td>
-                    <td><a href = "index.php">Logout</a></td>
-                </tr>
-            </table>
-
-            <h2>Add New Worker</h2>
+<?php
+    session_start();
+    include ('header.php');
+    include ('adminnavbar.php');
+    include ('adminsidebar.php')
+?>
+<div class="patientprofile">
+    <div class="d-flex justify-content-center align-items-center container ">
+        <div class="col-md-8 donor">
+            <h1 class="text-white bg-dark text-center">
+                Add New Worker
+            </h1>
 		<form action="" method="post">
-			<table>
-				<tr>
-					<td><span>Name:</span></td>
-					<td><input type="text" name="name"value="" required></td>
-				</tr>
-				<tr>
-					<td><span>UserName:</span></td>
-					<td><input type="text" name="uname"value="" required></td>
-				</tr>
-                <tr>
-					<td><span>Password:</span></td>
-					<td><input type="password" name="password"value="" required></td>
-				</tr>
-				<tr>
-					<td><span>Email:</span></td>
-					<td><input type="email" name="email"value="" required></td>
-				</tr>
-                <tr>
-                    <td><span>Designation:</span></td>
-                    <td>
-                        <select style="border-radius: 5px;">
+                <div class="form-group">
+					<label>Name:</label>
+					<input type="text" class="form-control" name="name"value="" required>
+				</div>
+				<div class="form-group">
+					<label>UserName:</label>
+					<input type="text" class="form-control" name="uname"value="" required>
+				</div>
+                <div class="form-group">
+					<label>Password:</label>
+					<input type="password" class="form-control" name="password"value="" required>
+				</div>
+				<div class="form-group">
+					<label>Email:</label>
+					<input type="email" class="form-control" name="email"value="" required>
+				</div>
+                <div class="form-group">
+                    <label>Designation:</label>
+                    
+                        <select style="border-radius: 5px;" class="form-control">
                             <option selected hidden>Select a Designation</option>
                             <option value="0">Manager</option>
                             <option value="1">Worker</option>
                             <option value="2">Driver</option>
                             <option value="3">Delivery Boy</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><span>Branch:</span></td>
-                    <td>
-                        <select style="border-radius: 5px;">
+
+                </div>
+                <div class="form-group">
+                    <label>Branch:</label>
+                    
+                        <select style="border-radius: 5px;" class="form-control">
                             <option selected hidden>Select a Branch</option>
                             <option value="0">Motijhil</option>
                             <option value="1">Jatrabari</option>
                             <option value="2">Khulna</option>
                             <option value="3">cumilla</option>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-					<td><span>Salary:</span></td>
-					<td><input type="text" name="salary"value="" required></td>
-				</tr>
-				<tr>
-					<td colspan = "2" style="text-align: center;"><input type="submit" name="newemployee" value="Add New Employee"></td>
-				</tr>
-			</table>
+                    
+                </div>
+                <div class="form-group">
+					<label>Salary:</label>
+					<input type="text" class="form-control" name="salary"value="" required>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" name="newemployee" value="Add New Employee">
+				</div>
 		</form>
-    </body>
-</html>
+        </div>
+    </div>
+</div>
+</div>
+<?php include ('footer.php');  ?>

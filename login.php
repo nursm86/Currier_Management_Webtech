@@ -1,83 +1,64 @@
 <?php
-	$uname="";
-	$password="";
-	if(isset($_POST["Login"]))
-	{
-        $uname=$_POST["uname"];
-        $password=$_POST["password"];
-		
-		$servername = "localhost";
-		$username = "root";
-		$pass = "";
-		$dbname = "web_tech";
-			
-		$conn = mysqli_connect($servername,$username,$pass,$dbname);
-			
-		$query = "SELECT * FROM users WHERE userName='$uname' and pass='$password'";
-			
-		$result = mysqli_query($conn,$query);
-			
-		if(mysqli_num_rows($result)){
-			$var = mysqli_fetch_assoc($result);
-				
-			if($var["type"] == "0"){
-				header("Location: admin_home.php");
-				setcookie("Loggedinuser",$uname,time()+60);
-				setcookie("type",$var["type"],time()+60);
-			}
-			else if($var["type"] == "2"){
-				header("Location: customer_home.php");
-				setcookie("Loggedinuser",$uname,time()+60);
-				setcookie("type",$var["type"],time()+60);
-            }
-            else if($var["type"] == "1"){
-				header("Location: employee_home.php");
-				setcookie("Loggedinuser",$uname,time()+60);
-				setcookie("type",$var["type"],time()+60);
-			}
-			else{
-				echo " Unknown Users Cannot Login";
-			}
-		}
-		else{
-			echo "User Name or Password is Wrong";
-		}
-		
-	}
+	require_once 'controllers/LoginController.php'
 ?>
-<html>
-	<head>
-		<title>LoginFrom</title>
-	</head>
-	<body>
+<html lang="en">
 
-		<table>
-            <tr>
-                <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
-            	<td><a href = "index.php">Home</a></td>
-                <td>Services</td>
-                <td>Contact</td>
-                <td><a href = "login.php">Login</a></td>
-                <td><a href = "Registration.php">Singup</a></td>
-            </tr>
-        </table>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles/indexstyle.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login</title>
+</head>
 
-		<h2>Login Form</h2>
-		<form action="" method="post">
-			<table>
-				<tr>
-					<td><span>Username:</span></td>
-					<td><input type="text" name="uname"value="<?php echo $uname; ?>" required></td>
-				</tr>
-				<tr>
-					<td><span>Password:</span></td>
-					<td><input type="password" name="password"value="<?php echo $password; ?>" required></td>
-				</tr>
-				<tr>
-					<td><label style= "color:red"><a href = "forgotpass.php">Forgot password?</a></label></td>
-					<td><input type="submit" name="Login" value="Login"></td>
-				</tr>
-			</table>
+
+<body>
+	<section id="nav-bar">
+		<nav class="navbar navbar-expand-lg navbar-light ">
+			<a class="navbar-brand" href="#"><img src="system_images/mlogo.png"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto" align="right">
+					<li class="nav-item active">
+						<a class="nav-link" href="index.php">Home </a>
+				</ul>
+			</div>
+		</nav>
+	</section>
+	<div class="container">
+		<br>
+		<h1 class="text-black text-center">Login</h1>
+		<form name="myForm" action="" method="POST" enctype="multipart/form-data">
+			<div class="col-lg-8 m-auto d-block">
+				<div class="form-group">
+					<label for="user">Username:</label>
+					<input type="text" name="username" value="<?php echo $uname; ?>" id="user" class="form-control">
+					<span style="color:red;"><?php echo $err_uname;?></span></td>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+					<span style="color:red;"><?php echo $err_password; ?></span></td>
+				</div>
+				<div class="form-group">
+					<input type="checkbox"  name="rememberme"> Remember Me
+					
+				</div>
+				<input type="submit" name="login" value="Login" class="btn btn-success">
+				<br>
+				<div class="form-group">
+					Don't have any account?
+					<a href="Registration.php">Click here</a>
+				</div>
+			</div>
 		</form>
-	</body>
+	</div>
+</body>
+
 </html>

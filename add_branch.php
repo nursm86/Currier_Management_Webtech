@@ -1,38 +1,30 @@
-<html>
-    <head>
-        <title>Admin Home</title>
-    </head>
-    <body>
-            <table>
-                <tr>
-                    <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
-                    <td><a href = "admin_home.php">Dashboard</a></td>
-                    <td bgcolor = "lightgreen"><a href = "add_branch.php">Add Branch</a></td>
-                    <td><a href = "all_branch.php">All Branch</a></td>
-					<td><a href = "workerlist.php">worker List</a></td>
-                    <td><a href = "add_Worker.php">Add Worker</a></td>
-					<td><a href = "solve_problem.php">solve worker problem</a></td>
-                    <td><a href = "index.php">Logout</a></td>
-                </tr>
-            </table>
-
-            <h2>Add New Worker</h2>
+<?php
+    session_start();
+    include ('header.php');
+    include ('adminnavbar.php');
+    include ('adminsidebar.php')
+?>
+<div class="patientprofile">
+    <div class="d-flex justify-content-center align-items-center container ">
+        <div class="col-md-8 donor">
+            <h1 class="text-white bg-dark text-center">
+                Add New Branch
+            </h1>
 		<form action="" method="post">
-			<table>
-				<tr>
-					<td><span>Branch Name:</span></td>
-					<td><input type="text" name="B_name"value="" required></td>
-				</tr>
-				<tr>
-					<td><span>Address:</span></td>
-					<td><input type="text" name="B_address"value="" required></td>
-				</tr>
-				<tr>
-					<td colspan = "2" style="text-align: center;"><input type="submit" name="newebranch" value="Add New Branch"></td>
-				</tr>
-			</table>
+				<div class="form-group">
+					<label>Branch Name:</label>
+					<input type="text" class="form-control" name="B_name"value="" required>
+				</div>
+				<div class="form-group">
+					<label>Address:</label>
+					<input type="text" class="form-control" name="B_address"value="" required>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" name="newebranch" value="Add New Branch">
+				</div>
 		</form>
-	</body>
-</html>
-    </body>
-</html>
+		</div>
+    </div>
+</div>
+</div>
+<?php include ('footer.php');  ?>

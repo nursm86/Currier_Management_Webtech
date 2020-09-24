@@ -1,33 +1,32 @@
-<html>
-    <head>
-        <title>Track Products</title>
-    </head>
-    <body>
-            <table>
+<?php
+    session_start();
+    include ('header.php');
+    include ('customernavbar.php');
+    include ('customersidebar.php')
+?>
+
+<div class="donorlist">
+    
+    <h1 class="text-white bg-dark text-center">
+    Pending Products
+    </h1><br>
+
+    <div class="row ">
+
+            <table class="table" id="myTable">
+                <thead>
                 <tr>
-                    <td><img src = "logo.png" alt="Logo" width = 40px length = 40px></td>
-                    <td><a href = "customer_home.php">Dashboard</a></td>
-                    <td><a href = "c_service_history.php">Service History</a></td>
-                    <td><a href = "new_delivery.php">New Delivery</a></td>
-					<td bgcolor = "lightgreen"><a href = "track_products.php">Track Products</a></td>
-                    <td><a href = "c_profile.php">Edit profile</a></td>
-					<td><a href = "c_helpline.php">Helpline</a></td>
-                    <td>Delete Account</td>
-                    <td><a href = "index.php">Logout</a></td>
-                </tr>
-            </table>
-
-            <span><strong>Pending Products</strong></span><br><br>
-
-            <table style ="float:center" border="1px">
-                <strong><tr>
                     <td>Sending Branch</td>
                     <td>Receiving Branch</td>
                     <td>Sending Date</td>
                     <td>Reciever Name</td>
                     <td>Address</td>
                     <td>Product State</td>
-                </tr></strong>
+                    <td>Decission</td>
+                </tr>
+                </thead>
+                <tbody>
+                    <div class="col-md-8">
                 <?php
                     $servername = "localhost";
                     $username = "root";
@@ -82,15 +81,24 @@
                         else{
                             echo "<td>"."Ready for Shipping"."</td>";
                         }
+                        echo '<td><input type="submit" class="btn btn-warning" value="Cancel" name="cancel" id=""></td>';
                         echo "</tr>";
                     }
                 
                 ?>
+                </tbody>
             </table>
+            </div>
+            </div>
 
-            <span><strong>Shipped Products</strong></span><br><br>
+            <br><br><h1 class="text-white bg-dark text-center">
+    Shipped Products
+    </h1><br>
 
-            <table style ="float:center" border="1px">
+    <div class="row ">
+
+            <table class="table" id="myTable">
+                <thead>
                 <tr>
                     <td>Sending Branch</td>
                     <td>Receiving Branch</td>
@@ -99,6 +107,9 @@
                     <td>Address</td>
                     <td>Product State</td>
                 </tr>
+                </thead>
+                <tbody>
+                    <div class="col-md-8">
                 <?php
                     $servername = "localhost";
                     $username = "root";
@@ -155,6 +166,9 @@
                     }
                 
                 ?>
+                </tbody>
             </table>
-    </body>
-</html>
+            </div>
+            </div>
+
+<?php include 'footer.php'?>
