@@ -1,33 +1,35 @@
 <?php
     include ('header.php');
     include ('employeenavbar.php');
-    require_once 'controllers/CustomerController.php';
- 
+    require_once 'controllers/ProductController.php';
     $id = $_GET['id'];
-    $customer = getCustomer($id);
+    $product = getProduct($id);
 
     if(isset($_POST['cancel'])){
-        header("Location: verify_customers.php");
+        header("Location: ship_products.php");
     }
     if(isset($_POST['no'])){
         $id = $_GET['id'];
-        $sql = "DELETE FROM customers WHERE userId= $id";
+        $sql = "DELETE FROM product WHERE Id= $id";
         execute($sql);
-        $sql = "DELETE FROM users WHERE id= $id";
-        execute($sql);
-        header("Location: verify_customers.php");
+        header("Location: ship_products.php");
     }
     if(isset($_POST['yes'])){
-        $sql = "UPDATE `users` SET `isValid`=TRUE WHERE id = $id";
+        $pid = $_GET['id'];
+        $mid = $_SESSION['id'];
+        $date = date('Y/m/d H:i:s');
+
+        $sql = "UPDATE product SET Product_State= 2 WHERE Id = $pid";
+
         execute($sql);
-        header("Location: verify_customers.php");
+        header("Location: ship_products.php");
     }
     include ('employeesidebar.php');
 ?>
 <div class="d-flex justify-content-center align-items-center container ">
 <div class="col-md-8 box">
             <h1 class="text-white bg-dark text-center">
-                Customer's Information
+                product's Information
 
             </h1>
             <table class="table">
@@ -35,38 +37,38 @@
                 <tbody>
                     <tr>
 
-                        <td class="tdattribute">Name</td>
+                        <td class="tdattribute">Sent to</td>
                         <td>:</td>
-                        <td><?php echo $customer[0]['name']; ?></td>
+                        <td><?php echo $product[0]['rbName']; ?></td>
 
                     </tr>
 
                     <tr>
 
-                        <td class="tdattribute">Email</td>
+                        <td class="tdattribute">Reciever Name</td>
                         <td>:</td>
-                        <td><?php echo $customer[0]['email']; ?></td>
+                        <td><?php echo $product[0]['rname']; ?></td>
 
                     </tr>
 
                     <tr>
 
-                        <td class="tdattribute">Phone Number</td>
+                        <td class="tdattribute">shipr Address</td>
                         <td>:</td>
-                        <td><?php echo $customer[0]['phone'];?></td>
+                        <td><?php echo $product[0]['raddress'];?></td>
 
                     </tr>
                     <tr>
-                        <td class="tdattribute">Address</td>
+                        <td class="tdattribute">Recieved Date</td>
                         <td>:</td>
-                        <td><?php echo $customer[0]['address']; ?></td>
+                        <td><?php echo $product[0]['date']; ?></td>
 
                     </tr>
                 </tbody>
             </table>
 		<form action="" method="post">
 				<div class="form-group">
-					<label class="text-white bg-dark text-center">Verify The customer?</label>
+					<label class="text-white bg-dark text-center">ship the Product?</label>
 				</div>
 				<div class="form-group">
                     <input type="submit" class="btn btn-warning" value="Cancel" name="cancel" id="">

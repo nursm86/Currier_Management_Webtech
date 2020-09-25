@@ -83,4 +83,17 @@
         return getArray($sql);
     }
 
+    function searchReleasedProduct($id,$key,$key2){
+        $result = getBranch($id);
+        $id = $result[0]['Branch_id'];
+        $sql = "SELECT p.Id as id,sb.Branch_Name as sbName,rb.Branch_Name as rbName ,p.Received_Date as date,p.ReceiverName as rname,p.ReceiverAddress as raddress, p.Product_State as state,p.Release_Date as rdate, p.ReceiverContact as phone FROM product as p,Branch as sb,Branch as rb where Product_State = 3 and p.Receiving_B_id = $id and p.Receiving_B_id = rb.Id and p.Sending_B_id = sb.Id and p.$key2 LIKE '%$key%'";
+        return getArray($sql);
+    }
+
+    function ChistorySearch($id,$key,$key2){
+        $query = "SELECT p.Id as id,sb.Branch_Name as sbName,rb.Branch_Name as rbName ,p.Received_Date as date,p.ReceiverName as rname,p.ReceiverAddress as raddress, p.Product_State as state,p.Release_Date as rdate FROM product as p,Branch as sb,Branch as rb where customer_Id = $id and Product_State = 4 and p.Sending_B_id = sb.Id and p.Receiving_B_id = rb.Id and p.$key2 LIKE '%$key%'";
+		$categories = getArray($query);
+		return $categories;
+	}
+
 ?>

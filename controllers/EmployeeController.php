@@ -5,7 +5,7 @@
 	$pass="";
 	$cpass="";
     $email = "";
-	$contact= "";
+	$phone= "";
     $address="";
     $joiningDate = "";
     $dob = "";
@@ -22,7 +22,7 @@
 	$err_pass="";
 	$err_cpass="";
     $err_email = "";
-	$err_contact = "";
+	$err_phone = "";
     $err_address="";
     $err_joiningDate = "";
     $err_dob = "";
@@ -35,7 +35,8 @@
     $err_gender = "";
 	$has_error=false;
 	$success = "";
-	if(isset($_POST["Register"]))
+	$sql = "";
+	if(isset($_POST["updateDocument"]))
 	{
 		if(empty($_POST["name"]))
 		{
@@ -52,126 +53,27 @@
                     break;
                 }
             }
-        }
-
-        if(empty($_POST["uname"]))
-		{
-			$err_uname = "Username Required <br>";
-			$has_error=true;
-		}else{
-            $uname=$_POST["uname"];
-            if(strlen($uname)<6){
-                $err_uname = "User Name must be at least 6 character long!!!";
-                $has_error = true;
-                $uname = "";
-            }
-            $arr = str_split($uname);
-            foreach($arr as $char){
-                if($char ==" "){
-                    $has_error = true;
-                    $err_uname = "UserName cannot contain White Space";
-                    $uname = "";
-                }
-            }
-
-			$sql = "SELECT * FROM users where userName = '$uname'";
-			if(getArray($sql)){
-                $has_error = true;
-                $err_uname = "UserName is already taken!!!Please choose different one";
-                $uname = "";
-            }
-        }
-        
-		if(empty($_POST["password"]))
-		{
-			$err_pass= "Password Required <br>";
-			$has_error=true;
-		}else{
-			$pass=$_POST["password"];
-			$cpass=$_POST["confirmPassword"];
-			if($pass !=$cpass){
-				$err_pass = "Password doesn't Match";
-				$has_error = true;
-			}
-            if(strlen($pass)<8){
-                $err_pass = "Password must be atleast 8 characters long";
-                $has_error = true;
-            }
-		}
-		if(empty($_POST["confirmPassword"]))
-		{
-			$err_cpass= "Password Required <br>";
-			$has_error=true;
-		}else{
-			$pass=$_POST["password"];
-			$cpass=$_POST["confirmPassword"];
-			if($pass !=$cpass){
-				$err_pass = "Password doesn't Match";
-				$has_error = true;
-			}
-            if(strlen($cpass)<8){
-                $err_cpass = "Password must be atleast 8 characters long";
-                $has_error = true;
-            }
-        }
-
-        if(empty($_POST["email"]))
-		{
-			$err_email = "Email Required <br>";
-			$has_error=true;
-		}else{
-            $email=$_POST["email"];
-            $Cemail = str_split($email);
-            $at = 0;
-            $dot = 0;
-            $i = 0;
-            $atC = 0;
-            foreach($Cemail as $char){
-                if($char == "@"){
-                    $at = $i;
-                    $atC++;
-                }
-
-                if($char == "."){
-                    $dot = $i;
-                }
-
-                if($atC > 1){
-                    $at = 0;
-                    $dot = 0;
-                    break;
-                }
-                $i++;
-            }
-            if($at > ($dot-2) || $dot== 0){
-                $has_error = true;
-                $err_email = "This is not a valid Email Address";
-			}
-			$sql = "SELECT * FROM users where emailAddress = '$email'";
-			if(getArray($sql)){
-                $has_error = true;
-                $err_email = "Email is already used!!! try different email";
-                $email = "";
-            }	
 		}
 
-		if(empty($_POST["contact"]))
+		if(empty($_POST["dob"]))
 		{
-			$err_contact= "contact No is Required <br>";
+			$err_dob= "DOB Required <br>";
 			$has_error=true;
 		}else{
-            $contact=$_POST["contact"];
-            if(strlen($contact)!=11){
+            $dob=$_POST["dob"];
+		}
+
+		if(empty($_POST["phone"]))
+		{
+			$err_phone= "contact No is Required <br>";
+			$has_error=true;
+		}else{
+            $phone=$_POST["phone"];
+            if(strlen($phone)!=11){
                 $has_error = true;
-                $err_contact = "contact Number Should be 11 in length.";
+                $err_phone = "contact Number Should be 11 in length.";
 			}
-			
-			/*$sql = "SELECT * FROM users where emailAddress = '$email'";
-			if(getArray($sql)){
-                $has_error = true;
-                $err_email = "Email is already used!!! try different email";
-                $email = "";
-            }*/
+
 		}
 
 		if(empty($_POST["address"]))
@@ -182,26 +84,27 @@
             $address=$_POST["address"];
 		}
 
-		if(empty($_POST["securityQue"]))
+        $bgroup=$_POST["bgroup"];
+		
+        $gender=$_POST["gender"];
+
+		if(empty($_POST["qualificaiton"]))
 		{
-			$err_sq= "Sequrity Que is Required <br>";
+			$err_qualificaiton= "qualification is Required <br>";
 			$has_error=true;
 		}else{
-            $sq=$_POST["securityQue"];
+            $qualificaiton=$_POST["qualificaiton"];
 		}
 
 		if(!$has_error){
 			$date = date('Y/m/d H:i:s');
-			$sql = "INSERT INTO users VALUES (NULL,'$uname','$email','$pass','$date',2,FALSE)";
+			$id = $_SESSION['id'];
+			$sql = "UPDATE `users` SET `updatedDate`='$date',`isValid`=TRUE WHERE id = $id";
 			execute($sql);
 
-			$sql ="SELECT id from users where userName = '$uname'";
-			$result = getArray($sql);
-			$id = $result[0]['id'];
-
-			$sql ="INSERT INTO customers VALUES($id,'$name','$contact','$address','$sq','$date')";
+			$sql ="UPDATE `employee` SET `Name`='$name',`JoiningDate`='$date',`DOB`='$dob',`ContactNo`='$phone',`Address`='$address',`UpdatedDate`='$date',`Blood_Group`='$bgroup',`Qualification`='$qualificaiton',`Gender`='$gender' WHERE userId = $id";
 			execute($sql);
-            $success= "Registration Successfull click here to <a href = 'login.php'>Login</a>";
+            $success= "Updated Successfully click here to <a href = 'login.php'>Login</a>";
 		}
 	}
 
@@ -313,7 +216,7 @@
 		}
 
 	function getEmployee($id){
-		$sql = "SELECT c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and c.userId = $id";
+		$sql = "SELECT c.userId as id,c.Name as name,u.emailAddress as email,c.Branch_id as bid,c.Salary as salary,c.Bonus as bonus, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and c.userId = $id";
 		return getArray($sql);
 	}
 
@@ -356,12 +259,12 @@
 	}
 
 	function getAllProblems(){
-		$sql = "select e.Name as name,b.Branch_Name as bname,ep.subject as subject, ep.Problem as problem, ep.UpdatedDate as date from employee_problem as ep, employee as e, Branch as b where e.Branch_id = b.Id";
+		$sql = "select ep.id as id,e.Name as name,b.Branch_Name as bname,ep.subject as subject, ep.Problem as problem, ep.UpdatedDate as date from employee_problem as ep, employee as e, Branch as b where e.Branch_id = b.Id";
 		return getArray($sql);
 	}
 
 	function getAllEmployee(){
-		$sql = "SELECT c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId";
+		$sql = "SELECT c.userId as id,c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId";
 		return getArray($sql);
 	}
 
@@ -477,6 +380,21 @@
 			$sql ="INSERT INTO `employee` VALUES ($id,NULL,NULL,NULL,$salary,NULL,NULL,NULL,$designation,$bid,'$date',NULL,NULL,NULL)";
 			execute($sql);
 		}
+	}
+
+	function SearchWorker($key,$key2,$key3){
+		$sql = "";
+		if($key3 == "*"){
+			$sql = "SELECT c.userId as id,c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and $key2 like '%$key%'";
+		}
+		else{
+			$sql = "SELECT c.userId as id,c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and $key2 like '%$key%' and c.Designation = $key3";
+		}
+		if(empty($key)){
+			getAllEmployee();
+		}
+		
+		return getArray($sql);
 	}
 
 ?>

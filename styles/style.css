@@ -1,37 +1,37 @@
-*, *:after, *:before {
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 .blue {
-  background: #00BFA6;
+  background: #00bfa6;
   color: #fff;
 }
 .navbar {
   padding: 10px 10%;
 }
-.navbar  ul,li :hover{
-  color: #1b776b;
-
-}
-.navbarSupportedContent ul,li:hover{
+.navbar ul,
+li :hover {
   color: #1b776b;
 }
-#logo{
+.navbarSupportedContent ul,
+li:hover {
+  color: #1b776b;
+}
+#logo {
   display: inline-block;
   height: 50px;
- 
-
 }
-#link{
+#link {
   color: #fff;
   font-weight: bold;
   margin: 0 10px;
 }
-i{
+i {
   margin: 0 7px;
   color: #fff;
-  
 }
 
 #sidebarCollapse {
@@ -57,41 +57,37 @@ i{
   background: #0eccb3;
   color: #fff;
   min-height: 90vh;
-position: fixed;
+  position: fixed;
   transition: all 0.5s;
   z-index: 1;
 }
-#sidebar.active{
-margin-left: -250px;
+#sidebar.active {
+  margin-left: -250px;
 }
 
-
-#sidebar ul.components{
-margin: 0px;
-padding: 0px;
-
+#sidebar ul.components {
+  margin: 0px;
+  padding: 0px;
 }
 
-
-
-#sidebar ul li a{
-padding: 20px ;
-text-decoration: none;
-color: #fff;
-font-size: 1.1em;
-font-weight: bold;
-display: block;
-border-bottom: 2px solid #00BFA6;
+#sidebar ul li a {
+  padding: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: bold;
+  display: block;
+  border-bottom: 2px solid #00bfa6;
 }
 #sidebar ul li a:hover {
   color: #08665a;
   background: #16e0c5;
 }
 
-#sidebar ul li.active>a,
+#sidebar ul li.active > a,
 a[aria-expanded="true"] {
   color: #fff;
-  background: #00BFA6;
+  background: #00bfa6;
 }
 a[data-toggle="collapse"] {
   position: relative;
@@ -108,30 +104,30 @@ a[data-toggle="collapse"] {
   font-size: 0.9em !important;
   padding-left: 50px !important;
   background: #057062;
-  border-bottom: 0px solid #00BFA6;
+  border-bottom: 0px solid #00bfa6;
 }
-
-
 
 .content {
   margin: 40px;
   width: 100%;
   padding: 20px;
-  
+
   transition: all 0.3s;
   height: auto;
 }
 
-@media(max-width:800px){
-#sidebar{margin-left: -250px;}
-#sidebar.active{
-  margin-left: 0px;
+@media (max-width: 800px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0px;
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
 }
-#sidebarCollapse span{
-  display: none;
-}
-}
-@media (max-width:400px) {
+@media (max-width: 400px) {
   #sidebar {
     margin-top: -20px;
   }
@@ -140,128 +136,114 @@ a[data-toggle="collapse"] {
   }
 }
 
-@media (min-width:800px) {
+@media (min-width: 800px) {
   #sidebar {
-    margin-left: -250px; 
+    margin-left: -250px;
   }
-  #sidebar.active{
+  #sidebar.active {
     margin-left: 0px;
   }
 }
 
-/* -----------patientprofile--------------------- */
-.patientprofile{
+.patientprofile {
   margin: 10px;
 }
-.profile .well{
+.profile .well {
   align-content: center;
   vertical-align: middle;
 }
- .patientprofile .well img{
+.patientprofile .well img {
   margin-bottom: 20px;
   width: 70%;
   height: 70%;
   border-radius: 50%;
   position: relative;
   object-fit: cover;
-margin-top: 65px;
-margin-left: 50px;
+  margin-top: 65px;
+  margin-left: 50px;
 }
-.patientprofile .well h3{
+.patientprofile .well h3 {
   text-align: center;
 }
-.patientprofile  .btn-group{
+.patientprofile .btn-group {
   margin: 30px;
   margin-left: 90px;
   border-radius: 50%;
   align-items: center;
-text-align: center;
+  text-align: center;
 }
-.patientprofile .btn-group button{
-  background: #00BFA6;
-  
+.patientprofile .btn-group button {
+  background: #00bfa6;
+
   font-size: small;
   border: 0px solid black;
-padding: 10px;
-  
+  padding: 10px;
 }
-.patientprofile .btn-group button i{
+.patientprofile .btn-group button i {
   font-size: larger;
   color: #fff;
- 
-  
 }
-.patientprofile .btn-group button:hover{
+.patientprofile .btn-group button:hover {
   background-color: #108575;
 }
-.patientprofile .box{
+.patientprofile .box {
   align-items: center;
 }
-.patientprofile .box h1{
+.patientprofile .box h1 {
   padding-left: 100px;
   font-weight: bold;
 }
-.patientprofile .box .table{
+.patientprofile .box .table {
   margin-top: 40px;
 }
 
 .patientprofile .box .table tbody tr td {
   border-top: none;
 }
-.patientprofile .box .table tbody tr .tdattribute{
+.patientprofile .box .table tbody tr .tdattribute {
   text-align: right;
 }
-.patientprofile .box button{
+.patientprofile .box button {
   border-radius: 50%;
   float: right;
-  
+
   font-size: larger;
 }
 
 .clockpicker-popover {
   z-index: 999999 !important;
-  }
-/* #profileDisplay{
-  display: block;
-  width: 100%;
-  margin: 10px auto;
-  border-radius: 50%;
-} */
+}
 
-/* -----------------doctorlist------------------- */
-.doctorlist .card{
+.doctorlist .card {
   display: flex;
 }
 
-#breadcrumb{
+#breadcrumb {
   background: none !important;
 }
-.doctorlist #searchbox{
+.doctorlist #searchbox {
   float: right;
 }
 
-.active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+.active-cyan-2 input.form-control[type="text"]:focus:not([readonly]) {
   border-bottom: 1px solid #4dd0e1;
   box-shadow: 0 1px 0 0 #4dd0e1;
 }
-.active-cyan input.form-control[type=text] {
+.active-cyan input.form-control[type="text"] {
   border-bottom: 1px solid #4dd0e1;
   box-shadow: 0 1px 0 0 #4dd0e1;
 }
 
-
- /* =----------------docList----------------- */
- .doctorlist .card-img{
+.doctorlist .card-img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
- }
+}
 
- .patientprofile .donor{
-   align-items: center;
-
- }
- .error{
-   color: red;
- }
+.patientprofile .donor {
+  align-items: center;
+}
+.error {
+  color: red;
+}

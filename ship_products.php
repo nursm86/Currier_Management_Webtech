@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
@@ -39,8 +42,7 @@
                         echo "<td>".$shipableProduct['rname']."</td>";
                         echo "<td>".$shipableProduct['raddress']."</td>";
                         echo "<td>".$shipableProduct['phone']."</td>";
-                        echo '<td><input type="submit" class="btn btn-success" value="Ship" name="ship" id=""></td>';
-                        echo '<td><input type="submit" class="btn btn-danger" value="Delete" name="delete" id=""></td>';
+                        echo '<td><a href="shipProduct.php?id='.$shipableProduct["id"].'" class="btn btn-warning">View</a></td>';
                         echo "</tr>";
                     }
                 ?>

@@ -41,47 +41,47 @@
 			<div class="form-group">
 					<span><?php echo $success;?></span>
 				</div>
-		<form action="" method="post">
+		<form action="" method="post" onsubmit="return validateForm()">
 			<table>
 				<div class="form-group">
 					<label>Name:</label>
-					<input type="text" class="form-control" name="name"value="<?php echo $name;?>">
-					<span style="color:red;"><?php echo $err_name;?></span>
+					<input type="text" class="form-control" id ="name" name="name"value="<?php echo $name;?>">
+					<span id="err_name" style="color:red;"><?php echo $err_name;?></span>
 				</div>
 				<div class="form-group">
 					<label>UserName:</label>
-					<input type="text" class="form-control" name="uname"value="<?php echo $uname;?>">
-					<span style="color:red;"><?php echo $err_uname;?></span>
+					<input type="text" class="form-control" id="uname" name="uname"value="<?php echo $uname;?>">
+					<span id="err_uname" style="color:red;"><?php echo $err_uname;?></span>
 				</div>
                 <div class="form-group">
 					<label>Password:</label>
-					<input type="password" class="form-control" name="password"value="<?php echo $pass;?>">
-					<span style="color:red;"><?php echo $err_pass;?></span>
+					<input type="password" class="form-control" id="pass" name="password"value="<?php echo $pass;?>">
+					<span id="err_pass" style="color:red;"><?php echo $err_pass;?></span>
 				</div>
 				<div class="form-group">
 					<label>ConfirmPassword:</label>
-					<input type="password" class="form-control" name="confirmPassword"value="<?php echo $cpass;?>">
-					<span style="color:red;"><?php echo $err_cpass;?></span>
+					<input type="password" class="form-control" id="cpass" name="confirmPassword"value="<?php echo $cpass;?>">
+					<span id="err_cpass" style="color:red;"><?php echo $err_cpass;?></span>
 				</div>
                 <div class="form-group">
 					<label>Contact:</label>
-					<input type="text" class="form-control" name="contact"value="<?php echo $contact;?>">
-					<span style="color:red;"><?php echo $err_contact;?></span>
+					<input type="text" class="form-control" id="contact" name="contact" value="<?php echo $contact;?>">
+					<span id="err_contact" style="color:red;"><?php echo $err_contact;?></span>
 				</div>
 				<div class="form-group">
 					<label>Email:</label>
-					<input type="text" class="form-control" name="email"value="<?php echo $email;?>">
-					<span style="color:red;"><?php echo $err_email;?></span>
+					<input type="text" class="form-control" id="email" name="email"value="<?php echo $email;?>">
+					<span id="err_email" style="color:red;"><?php echo $err_email;?></span>
 				</div>
                 <div class="form-group">
 					<label>Address:</label>
-					<input type="textarea" class="form-control" name="address"value="<?php echo $address;?>">
-					<span style="color:red;"><?php echo $err_address;?></span>
+					<input type="textarea" class="form-control" id="address" name="address"value="<?php echo $address;?>">
+					<span id="err_address" style="color:red;"><?php echo $err_address;?></span>
 				</div>
 				<div class="form-group">
 					<label>Security Que:</label>
-					<input type="text" class="form-control" name="securityQue"value="<?php echo $sq;?>" placeholder = "Who is your best friend?">
-					<span style="color:red;"><?php echo $err_sq;?></span>
+					<input type="text" class="form-control" id="sq" name="securityQue"value="<?php echo $sq;?>" placeholder = "Who is your best friend?">
+					<span id="err_sq" style="color:red;"><?php echo $err_sq;?></span>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" name="Register" value="Register">
@@ -97,3 +97,76 @@
 </div>
 </div>
 <?php include 'footer.php'?>
+
+<script>
+	function get(id){
+		return document.getElementById(id);
+	}
+	function validateForm(){
+		var name =get('name').value;
+		var uname=get('uname').value;
+		var pass=get('pass').value;
+		var cpass=get('cpass').value;
+    	var email = get('email').value;
+		var contact= get('contact').value;
+		var address=get('address').value;
+		var sq=get('sq').value;
+    
+		var err_name = get('err_name');
+		var err_uname=get('err_uname');
+		var err_pass=get('err_pass');
+		var err_cpass=get('err_cpass');
+		var err_email = get('err_email');
+		var err_contact = get('err_contact');
+		var err_sq =get('err_sq');
+		var err_address=get('err_address');
+		var has_error=true;
+		if(name=="")
+		{
+			err_name = "Name Required <br>";
+			has_error=false;
+		}
+
+        if(uname =="")
+		{
+			err_uname = "Username Required <br>";
+			has_error=false;
+		}
+        
+		if(pass=="")
+		{
+			err_pass= "Password Required <br>";
+			has_error=false;
+		}
+		if(cpass=="")
+		{
+			err_cpass= "Password Required <br>";
+			has_error=false;
+		}
+
+        if(email=="")
+		{
+			err_email = "Email Required <br>";
+			has_error=false;
+		}
+
+		if(contact=="")
+		{
+			err_contact= "contact No is Required <br>";
+			has_error=false;
+		}
+
+		if(address=="")
+		{
+			err_address= "Address Required <br>";
+			has_error=false;
+		}
+
+		if(securityQue=="")
+		{
+			err_sq= "Sequrity Que is Required <br>";
+			has_error=false;
+		}
+		return has_error;
+	}
+</script>

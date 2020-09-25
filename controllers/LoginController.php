@@ -1,6 +1,22 @@
 <?php
 	session_start();
 	require_once 'models/db_connect.php';
+
+	if(isset($_COOKIE['Loggedinuser'])){
+		if($_COOKIE['type'] == "0"){
+			$_SESSION["id"] = $_COOKIE['Loggedinuser'];
+			header("Location: admin_home.php");	
+		}
+		else if($_COOKIE['type'] == "2"){
+			$_SESSION["id"] = $_COOKIE['Loggedinuser'];
+			header("Location: customer_home.php");
+		}
+		else if($_COOKIE['type'] == "1"){
+			$_SESSION["id"] = $_COOKIE['Loggedinuser'];
+			header("Location: employee_home.php");
+		}
+	}
+
 	$uname = "";
 	$err_uname="";
 	$password = "";
@@ -25,28 +41,35 @@
 		if(!$has_error){
 			$var = authenticate($uname,$password);
 			if($var){
+				if(isset($_POST['rememberme'])){
+					setcookie("Loggedinuser",$var[0]['id'],time()+31536000000);
+					setcookie("type",$var[0]["type"],time()+31536000000);
+				}
 				if($var[0]["type"] == "0"){
-					header("Location: admin_home.php");
-					setcookie("Loggedinuser",$uname,time()+60);
-					setcookie("type",$var["type"],time()+60);
 					$_SESSION["id"] = $var[0]['id'];
+					header("Location: admin_home.php");
+					
 				}
 				else if($var[0]["type"] == "2"){
 					if($var[0]['isValid']){
-						header("Location: customer_home.php");
-						setcookie("Loggedinuser",$uname,time()+60);
-						setcookie("type",$var["type"],time()+60);
 						$_SESSION["id"] = $var[0]['id'];
+						header("Location: customer_home.php");
+						
 					}
 					else{
 						$loginError = "You are not verfied yet!!!Please Wait";
 					}
 				}
 				else if($var[0]["type"] == "1"){
-					header("Location: employee_home.php");
-					setcookie("Loggedinuser",$uname,time()+60);
-					setcookie("type",$var["type"],time()+60);
-					$_SESSION["id"] = $var[0]['id'];
+					if($var[0]['isValid']){
+						$_SESSION["id"] = $var[0]['id'];
+						header("Location: employee_home.php");
+						
+					}
+					else if($var[0]['Designation'] == 0){
+						$_SESSION["id"] = $var[0]['id'];
+						header("Location: updateDocument.php");
+					}
 				}
 			}else{
 				$loginError = "User name or password is Invalid";

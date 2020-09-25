@@ -6,23 +6,17 @@
     $product = getProduct($id);
 
     if(isset($_POST['cancel'])){
-        header("Location: receive_products.php");
-    }
-    if(isset($_POST['no'])){
-        $id = $_GET['id'];
-        $sql = "DELETE FROM product WHERE Id= $id";
-        execute($sql);
-        header("Location: receive_products.php");
+        header("Location: release_products.php");
     }
     if(isset($_POST['yes'])){
         $pid = $_GET['id'];
         $mid = $_SESSION['id'];
         $date = date('Y/m/d H:i:s');
 
-        $sql = "UPDATE product SET Receiving_M_id=$pid,Product_State= 3 WHERE Id = $pid";
+        $sql = "UPDATE product SET Product_State= 4,Release_Date = '$date' WHERE Id = $pid";
 
         execute($sql);
-        header("Location: receive_products.php");
+        header("Location: release_products.php");
     }
     include ('employeesidebar.php');
 ?>
@@ -53,7 +47,7 @@
 
                     <tr>
 
-                        <td class="tdattribute">Receiver Address</td>
+                        <td class="tdattribute">releaser Address</td>
                         <td>:</td>
                         <td><?php echo $product[0]['raddress'];?></td>
 
@@ -68,11 +62,10 @@
             </table>
 		<form action="" method="post">
 				<div class="form-group">
-					<label class="text-white bg-dark text-center">Receive the Product?</label>
+					<label class="text-white bg-dark text-center">release the Product?</label>
 				</div>
 				<div class="form-group">
                     <input type="submit" class="btn btn-warning" value="Cancel" name="cancel" id="">
-                    <input type="submit" class="btn btn-danger" value="No" name="no" id="">
                     <td><input type="submit" class="btn btn-success" value="yes" name="yes" id="">
 				</div>
 		</form>

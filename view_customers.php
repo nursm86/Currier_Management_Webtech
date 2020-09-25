@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
@@ -15,16 +18,16 @@
         <div class="col-md-2">
             <div class="form-group">
 
-                <select class="form-control" name="accountType" id="drpdwnorgan" onchange="organSearch()">
+                <select class="form-control" name="accountType" id="searchBy">
                 <option value="" disabled selected>Search By</option>
                         <option value="Name" >Name</option>
-                        <option value="Contact" >Contact</option>
+                        <option value="ContactNo" >Contact</option>
                         <option value="Address" >Address</option>
                 </select>
             </div>
         </div>
         <div class="col-md-8 donor">
-        <input type="text" name="" id="myInput" placeholder="Search Customers " onkeyup="searchFun()">
+        <input type="text" name="" id="search_text" placeholder="Search Customers " onkeyup="search()">
         </div>
     </div><br>
 
@@ -40,7 +43,7 @@
                         <td>Address</td>
                     </tr>
                 </thead> 
-                <tbody>
+                <tbody id = "suggestion">
                     <div class="col-md-8">
                     <?php
                         foreach($customers as $customer){
@@ -58,3 +61,26 @@
 </div>
 
 <?php include 'footer.php';?>
+
+<script>
+	function get(id){
+		return document.getElementById(id);
+	}
+	function search(){
+		var text = get("search_text").value;
+        var text2 = get("searchBy").value;
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange=function(){
+			if(this.readyState == 4 && this.status == 200 ){
+				document.getElementById("suggestion").innerHTML = this.responseText;
+			}
+		};
+		if(text){
+			xhttp.open("GET","searchCustomer.php?key="+text+"&key2="+text2,true);
+			xhttp.send();
+		}
+		else{
+			document.getElementById("suggestion").innerHTML="";
+		}
+	}
+</script>

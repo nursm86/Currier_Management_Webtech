@@ -5,9 +5,8 @@ session_start();
 session_unset();
 session_destroy();
 
-setcookie('type','',time()-86400);
-setcookie('usenam','',time()-86400);
-setcookie('pass','',time()-86400);
+setcookie('type','',time()-31536000000);
+setcookie('Loggedinuser','',time()-31536000000);
 
 header("Location: login.php");
 

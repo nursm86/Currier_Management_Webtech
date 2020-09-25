@@ -517,7 +517,12 @@
 			}
 		}
 
-		
+	function CustomerSearch($key,$key2){
+		$sql = "SELECT c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address from users as u, customers as c where u.id = c.userId and c.$key2 like '%$key%'";
+		return getArray($sql);
+	}
+
+
 	function getCustomer($id){
 		$sql = "SELECT c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address,c.sequrity_Que as sq from users as u, customers as c where u.id = c.userId and c.userId = $id";
 		return getArray($sql);

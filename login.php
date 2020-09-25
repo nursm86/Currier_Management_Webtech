@@ -34,17 +34,17 @@
 	<div class="container">
 		<br>
 		<h1 class="text-black text-center">Login</h1>
-		<form name="myForm" action="" method="POST" enctype="multipart/form-data">
+		<form name="myForm" action="" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
 			<div class="col-lg-8 m-auto d-block">
 				<div class="form-group">
 					<label for="user">Username:</label>
-					<input type="text" name="username" value="<?php echo $uname; ?>" id="user" class="form-control">
-					<span style="color:red;"><?php echo $err_uname;?></span>
+					<input type="text" name="username" id="user" value="<?php echo $uname; ?>" id="user" class="form-control">
+					<span id="err_user" style="color:red;"><?php echo $err_uname;?></span>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-					<span style="color:red;"><?php echo $err_password; ?></span>
+					<input type="password" name="password" id="pass" class="form-control" value="<?php echo $password; ?>">
+					<span  id="err_pass" style="color:red;"><?php echo $err_password; ?></span>
 				</div>
 				<div class="form-group">
 					<input type="checkbox"  name="rememberme"> Remember Me<br>
@@ -65,3 +65,25 @@
 </body>
 
 </html>
+
+<script>
+	function get(id){
+		return document.getElementById(id);
+	}
+	function validateForm(){
+		var user = get("user").value;
+        var pass = get("pass").value;
+		var err_user = get("err_user");
+		var err_pass = get("err_pass");
+		var has_error = true;
+		if(user ==""){
+			err_user.innerHTML ="User Name required";
+			has_error = false;
+		}
+		if(pass ==""){
+			err_pass.innerHTML ="Password required";
+			has_error = false;
+		}
+		return has_error;
+	}
+</script>

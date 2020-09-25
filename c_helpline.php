@@ -1,5 +1,8 @@
 <?php
-    session_start();
+	session_start();
+	if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include ('header.php');
     include ('customernavbar.php');
     include ('customersidebar.php');
@@ -14,7 +17,7 @@
             </h1>
 		<form action="" method="post">
 				<div class="form-group">
-                <select class="form-control" name = "sbid">
+                <select class="form-control"  id="sbid" onchange="fill()">
                     <option selected hidden>Select Branch</option>
                             <?php
                                 foreach($allBranch as $branch){
@@ -25,10 +28,7 @@
 				</div>
 				<div class="form-group">
 					<label>Phone No</label>
-					<input type="text" class="form-control" name="B_address"value="<?php echo $phone;?>" required>
-				</div>
-				<div class="form-group">
-					<input type="submit" class="btn btn-primary" name="newebranch" value="Get Phone Number">
+					<input type="text" class="form-control" id="phone" value="" required>
 				</div>
 		</form>
 		</div>
@@ -36,3 +36,25 @@
 </div>
 </div>
 <?php include 'footer.php'?>
+
+<script>
+	function get(id){
+		return document.getElementById(id);
+	}
+	function fill(){
+		var text = get("sbid").value;
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange=function(){
+			if(this.readyState == 4 && this.status == 200 ){
+				document.getElementById("phone").value = this.responseText;
+			}
+		};
+		if(text){
+			xhttp.open("GET","getPhone.php?key="+text,true);
+			xhttp.send();
+		}
+		else{
+			document.getElementById("phone").value="";
+		}
+	}
+</script>

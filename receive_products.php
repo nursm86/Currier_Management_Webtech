@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include('header.php');
     include('employeenavbar.php');
     require_once 'controllers/ProductController.php';
@@ -80,7 +83,7 @@
                         echo "<td>".$rfromOB['rname']."</td>";
                         echo "<td>".$rfromOB['raddress']."</td>";
                         echo "<td>".$rfromOB['phone']."</td>";
-                        echo '<td><a href="deleteCustomer.php?id='.$rfromOB["id"].'" class="btn btn-warning">View</a></td>';
+                        echo '<td><a href="receivefromBranch.php?id='.$rfromOB["id"].'" class="btn btn-warning">View</a></td>';
                         echo "</tr>";
                     }
                 

@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include ('header.php');
     include ('adminnavbar.php');
     include ('adminsidebar.php');
@@ -12,14 +15,6 @@
     <h1 class="text-white bg-dark text-center">
     Worker's Problem
     </h1><br>
-    <div class="col-md-8 donor">
-        <div class="form-group">
-
-        <input type="text" name="" class="form-control" id="myInput" placeholder="Search Workers" onkeyup="searchFun()">
-        </div>
-    </div>
-    </div><br>
-
             <div class="row ">
 
             <table class="table" id="myTable">
@@ -44,8 +39,7 @@
                             echo "<td>".$problem['subject']."</td>";
                             echo "<td>".$problem['problem']."</td>";
                             echo "<td>".$problem['date']."</td>";
-                            echo '<td><input type="submit" class="btn btn-success" value="Solve" name="solve" id=""></td>';
-                            echo '<td><input type="submit" class="btn btn-danger" value="Delete" name="delete" id=""></td>';
+                            echo '<td><a href="solveProblem.php?id='.$problem["id"].'" class="btn btn-warning">View</a></td>';
                             echo "</tr>";
                         }
                     ?>

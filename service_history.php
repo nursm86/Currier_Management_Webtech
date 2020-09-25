@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
+    }
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
@@ -13,23 +16,6 @@
     <h1 class="text-white bg-dark text-center">
     Sent products
     </h1><br>
-
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-
-                <select class="form-control" name="accountType" id="drpdwnorgan" onchange="organSearch()">
-                <option value="" disabled selected>Search By</option>
-                        <option value="Name" >Name</option>
-                        <option value="Contact" >Contact</option>
-                        <option value="Address" >Address</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-8 donor">
-        <input type="text" name="" id="myInput" placeholder="Search Customers " onkeyup="searchFun()">
-        </div>
-    </div><br>
 
     <div class="row ">
 
@@ -77,23 +63,6 @@
             <br><br><h1 class="text-white bg-dark text-center">
     Recieved Products
     </h1><br>
-
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-
-                <select class="form-control" name="accountType" id="drpdwnorgan" onchange="organSearch()">
-                <option value="" disabled selected>Search By</option>
-                        <option value="Name" >Name</option>
-                        <option value="Contact" >Contact</option>
-                        <option value="Address" >Address</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-8 donor">
-        <input type="text" name="" id="myInput" placeholder="Search Customers " onkeyup="searchFun()">
-        </div>
-    </div><br>
 
     <div class="row ">
 
