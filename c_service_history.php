@@ -2,7 +2,10 @@
     session_start();
     include ('header.php');
     include ('customernavbar.php');
-    include ('customersidebar.php')
+    include ('customersidebar.php');
+    require_once 'controllers/ProductController.php';
+    $releasedProducts = getReleasedProducts($_SESSION['id']);
+    
 ?>
 
 <h1 class="text-white bg-dark text-center">
@@ -36,63 +39,20 @@
                     <td>Sending Date</td>
                     <td>Reciever Name</td>
                     <td>Address</td>
-                    <td>Product State</td>
+                    <td>Released Date</td>
                 </tr>
                 </thead>
                 <tbody>
                     <div class="col-md-8">
                 <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $pass = "";
-                    $dbname = "web_tech";
-                        
-                    $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                    $sql = "SELECT * FROM product where customer_Id = '1' and (Product_State = '2' or Product_State = '3')";
-
-                    $verify = mysqli_query($conn, $sql);
-                    
-                    while($var = mysqli_fetch_assoc($verify)){
+                    foreach($releasedProducts as $releasedProduct){
                         echo "<tr>";
-                        if($var['Sending_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-                        if($var['Receiving_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        echo "<td>".$var['Received_Date']."</td>";
-                        echo "<td>".$var['ReceiverName']."</td>";
-                        
-                        
-                        echo "<td>".$var['ReceiverAddress']."</td>";
-                        if($var['Product_State'] == 2){
-                            echo "<td>"."Shipped on the way to destination"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Reached to Destination Branch"."</td>";
-                        }
+                        echo "<td>".$releasedProduct['sbName']."</td>";
+                        echo "<td>".$releasedProduct['rbName']."</td>";
+                        echo "<td>".$releasedProduct['date']."</td>";
+                        echo "<td>".$releasedProduct['rname']."</td>";
+                        echo "<td>".$releasedProduct['raddress']."</td>";
+                        echo "<td>".$releasedProduct['rdate']."</td>";
                         echo "</tr>";
                     }
                 

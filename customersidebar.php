@@ -21,10 +21,6 @@
 			<li>
                     <a href="c_helpline.php"><i class="fas fa-tint"></i><span>Helpline</span></a>
             </li>
-			<li>
-				<!-- delete_account.php -->
-   				<a href=""><i class="fa fa-user"></i>Delete Account</a>
-			</li>
    			
 			<li>
 				<!-- terms and condition.php -->

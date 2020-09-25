@@ -2,7 +2,9 @@
     session_start();
     include ('header.php');
     include ('customernavbar.php');
-    include ('customersidebar.php')
+    require_once 'controllers/ProductController.php';
+    include ('customersidebar.php');
+    $allBranch = getAllBranch();
 ?>
 <div class="patientprofile">
     <div class="d-flex justify-content-center align-items-center container ">
@@ -16,34 +18,31 @@
             <form action="" method="post">
 			<table>
                     
-                        <select class="form-control">
+                        <select class="form-control" name = "category">
                             <option selected hidden>Select a Category</option>
-                            <option value="0">Manager</option>
-                            <option value="1">Worker</option>
-                            <option value="2">Driver</option>
-                            <option value="3">Delivery Boy</option>
+                            <option value="0">Electronics</option>
+                            <option value="1">Mobiles</option>
+                            <option value="2">Accessories</option>
+                            <option value="3">Papers</option>
                         </select><br>
                     
                     
-                        <input type = "textarea" class="form-control" placeholder = "Describe the product" required><br>
+                        <input type = "textarea" class="form-control" name = "description" placeholder = "Describe the product" required><br>
                     
 
 					
-                        <input type = "text" class="form-control" placeholder = "Quantity" required><br>
+                        <input type = "text" class="form-control" name = "quantity" placeholder = "Quantity" required><br>
                     
 					
-                        <select class="form-control">
+                        <select class="form-control" name="pmethod">
                             <option selected hidden>Select Payment Method</option>
                             <option value="0">Bkash</option>
                             <option value="1">Rocket</option>
                             <option value="2">Nexus</option>
                             <option value="3">Cash on deliver</option>
                         </select><br>
-                    
-
-
 					
-                        <select class="form-control">
+                        <select class="form-control" name = "size">
                             <option selected hidden>Select size</option>
                             <option value="0">Extra Large</option>
                             <option value="1">Large</option>
@@ -52,42 +51,44 @@
                         </select><br>
                     
 					
-                        <select class="form-control">
+                        <select class="form-control" name = "sbid">
                             <option selected hidden>Select Sending Branch</option>
-                            <option value="0">Motijhil</option>
-                            <option value="1">Jatrabari</option>
-                            <option value="2">Khulna</option>
-                            <option value="3">Cumilla</option>
+                            <?php
+                                foreach($allBranch as $branch){
+                                    echo "<option value = '".$branch['Id']."'>".$branch["Branch_Name"]."</option>";
+                                }
+                            ?>
                         </select><br>
 
                     <h2>Receiver Information</h2>
 
 					
-                        <input type = "text" class="form-control" placeholder = "Full Name" required><br>
+                        <input type = "text" class="form-control" name = "rname"; placeholder = "Full Name" required><br>
                     
 
 
 					
-                        <input type = "text" class="form-control" placeholder = "Contact Number" required><br>
+                        <input type = "text" class="form-control" name = "rcontact" placeholder = "Contact Number" required><br>
                     
 
 
                     
-                        <input type = "text" class="form-control" placeholder = "Email"><br>
+                        <input type = "text" class="form-control" name = "email" placeholder = "Email"><br>
                     
 
 
                     
-                        <input type = "text" class="form-control" placeholder = "Address" required><br>
+                        <input type = "text" class="form-control" name = "raddress" placeholder = "Address" required><br>
 
                 
                     
-                        <select class="form-control">
-                            <option selected hidden>Select Sending Branch</option>
-                            <option value="0">Motijhil</option>
-                            <option value="1">Jatrabari</option>
-                            <option value="2">Khulna</option>
-                            <option value="3">Cumilla</option>
+                        <select class="form-control" name = "rbid">
+                            <option selected hidden>Select Receiving Branch</option>
+                            <?php
+                                foreach($allBranch as $branch){
+                                    echo "<option value = '".$branch['Id']."'>".$branch["Branch_Name"]."</option>";
+                                }
+                            ?>
                         </select><br>
                     
 					<input type="submit" class="btn btn-primary" name="newdelivery" value="Confirm Delivery">

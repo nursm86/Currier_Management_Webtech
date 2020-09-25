@@ -3,6 +3,8 @@
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
+    require_once 'controllers/CustomerController.php';
+    $customers = getAllCustomers();
 ?>
 <div class="donorlist">
     
@@ -33,7 +35,7 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Gender</td>
+                        <td>Email Address</td>
                         <td>Contact No</td>
                         <td>Address</td>
                     </tr>
@@ -41,28 +43,12 @@
                 <tbody>
                     <div class="col-md-8">
                     <?php
-                        $servername = "localhost";
-                        $username = "root";
-                        $pass = "";
-                        $dbname = "web_tech";
-                            
-                        $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                        $sql = "SELECT * FROM customers";
-
-                        $verify = mysqli_query($conn, $sql);
-                        
-                        while($var = mysqli_fetch_assoc($verify)){
+                        foreach($customers as $customer){
                             echo "<tr>";
-                            echo "<td>".$var['Name']."</td>";
-                            if($var['Gender'] == 0){
-                                echo "<td>"."Male"."</td>";
-                            }
-                            else{
-                                echo "<td>"."Male"."</td>";
-                            }
-                            echo "<td>".$var['ContactNo']."</td>";
-                            echo "<td>".$var['Address']."</td>";
+                            echo "<td>".$customer['name']."</td>";
+                            echo "<td>".$customer['email']."</td>";
+                            echo "<td>".$customer['phone']."</td>";
+                            echo "<td>".$customer['address']."</td>";
                             echo "</tr>";
                         }
                     ?>

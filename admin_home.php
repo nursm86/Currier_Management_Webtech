@@ -2,7 +2,9 @@
     session_start();
     include ('header.php');
     include ('adminnavbar.php');
-    include ('adminsidebar.php')
+    include ('adminsidebar.php');
+    require 'controllers/AdminController.php';
+    $admin = getAdmin($_SESSION['id']);
 ?>
 
 <div class="patientprofile">
@@ -15,7 +17,7 @@
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editpass"><i class="fa fa-key"></i></button>
                             </div>
-                            <h3><?php echo "hi"; ?></h3>
+                            <h3><?php echo $admin[0]['userName']; ?></h3>
                             <p></p>
                         </div>
                     </div>
@@ -29,13 +31,13 @@
                                 <tr>
                                 
                                     <td>Username</td>
-                                    <td><?php echo "hlw"; ?></td>
+                                    <td><?php echo $admin[0]['userName'];  ?></td>
                                
                                 </tr>
                                 <tr>
                                 
-                                    <td>Hashed Password</td>
-                                    <td><?php echo "gelo"; ?></td>
+                                    <td>Email</td>
+                                    <td><?php echo $admin[0]['emailAddress'];  ?></td>
                                
                                 </tr>
                                 
@@ -85,16 +87,16 @@
                     <div class="modal-body">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <div class="form-group">
-                            <label for="password">Current Password</label>
-                            <input type="password" class="form-control" name="password" >  
+                            <label for="pass">Current Password</label>
+                            <input type="password" class="form-control" name="pass" >  
                         </div>
                         <div class="form-group">
-                            <label for="nPassword">New Password</label>
-                            <input type="password" class="form-control" name="nPassword" >
+                            <label for="npassw">New Password</label>
+                            <input type="password" class="form-control" name="npass" >
                         </div>
                         <div class="form-group">
-                            <label for="cPassword">Confirm Password</label>
-                            <input type="password" class="form-control" name="cPassword">
+                            <label for="cPass">Confirm Password</label>
+                            <input type="password" class="form-control" name="cPass">
                         </div>
                     </div>
                     

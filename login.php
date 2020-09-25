@@ -39,15 +39,18 @@
 				<div class="form-group">
 					<label for="user">Username:</label>
 					<input type="text" name="username" value="<?php echo $uname; ?>" id="user" class="form-control">
-					<span style="color:red;"><?php echo $err_uname;?></span></td>
+					<span style="color:red;"><?php echo $err_uname;?></span>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
 					<input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-					<span style="color:red;"><?php echo $err_password; ?></span></td>
+					<span style="color:red;"><?php echo $err_password; ?></span>
 				</div>
 				<div class="form-group">
-					<input type="checkbox"  name="rememberme"> Remember Me
+					<input type="checkbox"  name="rememberme"> Remember Me<br>
+					<span style="color:red;"><?php echo $loginError;?></span>
+				</div>
+				<div class="form-group">
 					
 				</div>
 				<input type="submit" name="login" value="Login" class="btn btn-success">

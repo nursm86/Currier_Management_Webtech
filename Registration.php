@@ -1,5 +1,5 @@
 <?php
-	require_once 'controllers/LoginController.php'
+	require_once 'controllers/CustomerController.php'
 ?>
 <html lang="en">
 
@@ -12,7 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Login</title>
+	<title>Registration</title>
 </head>
 
 
@@ -36,41 +36,52 @@
     <div class="d-flex justify-content-center align-items-center container ">
         <div class="col-md-8 donor">
             <h1 class="text-white bg-dark text-center">
-                Add New Customer
+                Registration
             </h1>
+			<div class="form-group">
+					<span><?php echo $success;?></span>
+				</div>
 		<form action="" method="post">
 			<table>
 				<div class="form-group">
 					<label>Name:</label>
-					<input type="text" class="form-control" name="name"value="" required>
+					<input type="text" class="form-control" name="name"value="<?php echo $name;?>">
+					<span style="color:red;"><?php echo $err_name;?></span>
 				</div>
 				<div class="form-group">
 					<label>UserName:</label>
-					<input type="text" class="form-control" name="uname"value="" required>
+					<input type="text" class="form-control" name="uname"value="<?php echo $uname;?>">
+					<span style="color:red;"><?php echo $err_uname;?></span>
 				</div>
                 <div class="form-group">
 					<label>Password:</label>
-					<input type="password" class="form-control" name="password"value="" required>
+					<input type="password" class="form-control" name="password"value="<?php echo $pass;?>">
+					<span style="color:red;"><?php echo $err_pass;?></span>
 				</div>
 				<div class="form-group">
 					<label>ConfirmPassword:</label>
-					<input type="text" class="form-control" name="confirmPassword"value="" required>
+					<input type="password" class="form-control" name="confirmPassword"value="<?php echo $cpass;?>">
+					<span style="color:red;"><?php echo $err_cpass;?></span>
 				</div>
                 <div class="form-group">
 					<label>Contact:</label>
-					<input type="text" class="form-control" name="contact"value="" required>
+					<input type="text" class="form-control" name="contact"value="<?php echo $contact;?>">
+					<span style="color:red;"><?php echo $err_contact;?></span>
 				</div>
 				<div class="form-group">
 					<label>Email:</label>
-					<input type="email" class="form-control" name="email"value="" required>
+					<input type="text" class="form-control" name="email"value="<?php echo $email;?>">
+					<span style="color:red;"><?php echo $err_email;?></span>
 				</div>
                 <div class="form-group">
 					<label>Address:</label>
-					<input type="textarea" class="form-control" name="address"value="" required>
+					<input type="textarea" class="form-control" name="address"value="<?php echo $address;?>">
+					<span style="color:red;"><?php echo $err_address;?></span>
 				</div>
 				<div class="form-group">
 					<label>Security Que:</label>
-					<input type="text" class="form-control" name="securityQue"value="" placeholder = "Who is your best friend?" required>
+					<input type="text" class="form-control" name="securityQue"value="<?php echo $sq;?>" placeholder = "Who is your best friend?">
+					<span style="color:red;"><?php echo $err_sq;?></span>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" name="Register" value="Register">
@@ -85,5 +96,4 @@
     </div>
 </div>
 </div>
-
 <?php include 'footer.php'?>

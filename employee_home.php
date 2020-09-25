@@ -3,8 +3,9 @@
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
+    require_once 'controllers/EmployeeController.php';
+    $employee = getEmployee($_SESSION['id']);
 ?>
-
 <div class="patientprofile">
     <div class="row">
         <div class="col-md-4 box">
@@ -15,7 +16,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editpass"><i class="fa fa-key"></i></button>
                 </div>
-                <h3><?php echo "Nur Islam"; ?></h3>
+                <h3><?php echo $employee[0]['name'] ?></h3>
                 <p></p>
             </div>
         </div>
@@ -31,38 +32,31 @@
                 <tbody>
                     <tr>
 
-                        <td class="tdattribute">First Name</td>
+                        <td class="tdattribute">Name</td>
                         <td>:</td>
-                        <td><?php echo "Md.Nur"; ?></td>
-
-                    </tr>
-                    <tr>
-
-                        <td class="tdattribute">Last Name</td>
-                        <td>:</td>
-                        <td><?php echo "Islam"; ?></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td class="tdattribute">Date of Birth</td>
-                        <td>:</td>
-                        <td><?php echo "12/04/1998"; ?></td>
-
-                    </tr>
-                    <tr>
-
-                        <td class="tdattribute">Blood Group</td>
-                        <td>:</td>
-                        <td><?php echo "A+"; ?></td>
+                        <td><?php echo $employee[0]['name'] ?></td>
 
                     </tr>
                     <tr>
 
                         <td class="tdattribute">Email</td>
                         <td>:</td>
-                        <td><?php echo "nursm86@gmail.com"; ?></td>
+                        <td><?php echo $employee[0]['email']?></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tdattribute">Date of Birth</td>
+                        <td>:</td>
+                        <td><?php echo $employee[0]['dob'] ?></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="tdattribute">Address</td>
+                        <td>:</td>
+                        <td><?php echo $employee[0]['address']?></td>
 
                     </tr>
 
@@ -70,28 +64,42 @@
 
                         <td class="tdattribute">Phone Number</td>
                         <td>:</td>
-                        <td><?php echo "01622114901"; ?></td>
+                        <td><?php echo $employee[0]['phone']; ?></td>
 
                     </tr>
                     <tr>
 
-                        <td class="tdattribute">Department</td>
+                        <td class="tdattribute">Joining Date</td>
                         <td>:</td>
-                        <td><?php echo "CSE"; ?></td>
+                        <td><?php echo $employee[0]['jdate']?></td>
 
                     </tr>
-<!--                     <tr>
+
+                    <tr>
+                        <td class="tdattribute">Designation</td>
+                        <td>:</td>
+                        <td><?php
+                            if($employee[0]['desig'] == 0){
+                                echo "Manager";
+                            }
+                            else if($employee[0]['desig'] == 1){
+                                echo "Worker";
+                            }
+                            else if($employee[0]['desig'] == 2){
+                                echo "Delivery Boy";
+                            }
+                            else if($employee[0]['desig'] == 1){
+                                echo "Driver";
+                            }
+                         ?></td>
+
+                    </tr>
+                    
+                    <tr>
 
                         <td class="tdattribute">Qualification</td>
                         <td>:</td>
-                        <td><?php echo "MSC"; ?></td>
-
-                    </tr> -->
-                    <tr>
-
-                        <td class="tdattribute">Hospital</td>
-                        <td>:</td>
-                        <td><?php "Kola"; ?></td>
+                        <td><?php echo $employee[0]['qualification']?></td>
 
                     </tr>
 
@@ -144,16 +152,16 @@
                 <div class="modal-body">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <div class="form-group">
-                            <label for="password">Current Password</label>
-                            <input type="password" class="form-control" name="password">
+                            <label for="pass">Current Password</label>
+                            <input type="password" class="form-control" name="pass">
                         </div>
                         <div class="form-group">
-                            <label for="nPassword">New Password</label>
-                            <input type="password" class="form-control" name="nPassword">
+                            <label for="npass">New Password</label>
+                            <input type="password" class="form-control" name="npass">
                         </div>
                         <div class="form-group">
-                            <label for="cPassword">Confirm Password</label>
-                            <input type="password" class="form-control" name="cPassword">
+                            <label for="cPass">Confirm Password</label>
+                            <input type="password" class="form-control" name="cPass">
                         </div>
 
                 </div>
@@ -178,78 +186,23 @@
                 <div class="modal-body">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" value="<?php echo $employee[0]['name'] ?>">
                         </div>
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>">
-                        </div>
+                        
                         <div class="form-group">
                             <label>Date of Birth</label>
-                            <input type="date" class="form-control" name="dob" value="<?php echo $dob; ?>">
+                            <input type="date" class="form-control" name="dob" value="<?php  echo $employee[0]['dob'] ?>">
                         </div>
+
                         <div class="form-group">
-                            <label>Blood Group</label>
-                            <select class="form-control" name="bGroup">
-                                <option value="a+" <?php if ($bGroup == "a+") echo "selected"; ?>>A+</option>
-                                <option value="a-" <?php if ($bGroup == "a-") echo "selected"; ?>>A-</option>
-                                <option value="b+" <?php if ($bGroup == "b+") echo "selected"; ?>>B+</option>
-                                <option value="b-" <?php if ($bGroup == "b-") echo "selected"; ?>>B-</option>
-                                <option value="ab+" <?php if ($bGroup == "ab+") echo "selected"; ?>>AB+</option>
-                                <option value="ab-" <?php if ($bGroup == "ab-") echo "selected"; ?>>AB-</option>
-                                <option value="o+" <?php if ($bGroup == "o+") echo "selected"; ?>>O+</option>
-                                <option value="o-" <?php if ($bGroup == "o-") echo "selected"; ?>>O-</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" name="email" value="<?php echo $email; ?>">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="address" value="<?php echo $employee[0]['address']?>">
                         </div>
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="text" class="form-control" name="pNumber" value="<?php echo $pNumber; ?>">
+                            <input type="text" class="form-control" name="phone" value="<?php echo $employee[0]['phone']; ?>">
                         </div>
-                        <div class="form-group">
-                            <label>Department</label>
-                            <!-- <input type="text" class="form-control" name="dept" value="<?php echo $dept; ?>"> -->
-                            <select class="form-control" name="dept">
-                                <option value="DEPARTMENT OF EYE" <?php if ($dept == "DEPARTMENT OF EYE") echo "selected"; ?>>DEPARTMENT OF EYE</option>
-                                <option value="DEPARTMENT OF CARDIOLOGY" <?php if ($dept == "DEPARTMENT OF CARDIOLOGY") echo "selected"; ?>>DEPARTMENT OF CARDIOLOGY</option>
-                                <option value="DEPARTMENT OF SURGERY" <?php if ($dept == "DEPARTMENT OF SURGERY") echo "selected"; ?>>DEPARTMENT OF SURGERY</option>
-                                <option value="DEPARTMENT OF CARDIO THORACIC" <?php if ($dept == "DEPARTMENT OF CARDIO THORACIC") echo "selected"; ?>>DEPARTMENT OF CARDIO THORACIC</option>
-                                <option value="DEPARTMENT OF ANAESTHETIST" <?php if ($dept == "DEPARTMENT OF ANAESTHETIST") echo "selected"; ?>>DEPARTMENT OF ANAESTHETIST</option>
-                                <option value="DEPARTMENT OF GENERAL MEDICINE & HEART" <?php if ($dept == "DEPARTMENT OF GENERAL MEDICINE & HEART") echo "selected"; ?>>DEPARTMENT OF GENERAL MEDICINE & HEART</option>
-                                <option value="DEPARTMENT OF SKIN" <?php if ($dept == "DEPARTMENT OF SKIN") echo "selected"; ?>>DEPARTMENT OF SKIN</option>
-                                <option value="DEPARTMENT OF DENTAL" <?php if ($dept == "DEPARTMENT OF DENTAL") echo "selected"; ?>>DEPARTMENT OF DENTAL</option>
-                                <option value="DEPARTMENT OF ORTHOPAEDICS" <?php if ($dept == "DEPARTMENT OF ORTHOPAEDICS") echo "selected"; ?>>DEPARTMENT OF ORTHOPAEDICS</option>
-                                <option value="DEPARTMENT OF NEPHROLOGY" <?php if ($dept == "DEPARTMENT OF NEPHROLOGY") echo "selected"; ?>>DEPARTMENT OF NEPHROLOGY</option>
-                                <option value="DEPARTMENT OF NEUROLOGY" <?php if ($dept == "DEPARTMENT OF NEUROLOGY") echo "selected"; ?>>DEPARTMENT OF NEUROLOGY</option>
-                                <option value="DEPARTMENT OF GYNAECOLOGY" <?php if ($dept == "DEPARTMENT OF GYNAECOLOGY") echo "selected"; ?>>DEPARTMENT OF GYNAECOLOGY</option>
-                                <option value="DEPARTMENT OF GASTROENTEROLOGY" <?php if ($dept == "DEPARTMENT OF GASTROENTEROLOGY") echo "selected"; ?>>DEPARTMENT OF GASTROENTEROLOGY</option>
-                            </select>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label>Qualification</label>
-                            <input type="text" class="form-control" name="qualification" value="<?php echo $qualification; ?>">
-                        </div> -->
-                        <div class="form-group">
-                            <label>Hospital</label>
-                            <!-- <input type="text" class="form-control" name="hospital" value="<?php echo $hospital; ?>"> -->
-                                <select class="form-control" name="hospital">
-                                <option value="Square Hospital" <?php if ($hospital == "Square Hospital") echo "selected"; ?>>Square Hospital</option>
-                                <option value="Apollo Hospital" <?php if ($hospital == "Apollo Hospital") echo "selected"; ?>>Apollo Hospital</option>
-                                <option value="Labaid Hospital" <?php if ($hospital == "Labaid Hospital") echo "selected"; ?>>Labaid Hospital</option>
-                                <option value="Ibn Sina Hospital" <?php if ($hospital == "Ibn Sina Hospital") echo "selected"; ?>>Ibn Sina Hospital</option>
-                                <option value="Popular Hospital" <?php if ($hospital == "Popular Hospital") echo "selected"; ?>>Popular Hospital</option>
-                                <option value="Birdem Hospital" <?php if ($hospital == "Birdem Hospital") echo "selected"; ?>>Birdem Hospital</option>
-                                <option value="BSMMU Hospital" <?php if ($hospital == "BSMMU Hospital") echo "selected"; ?>>BSMMU Hospital</option>
-                                <option value="Bangladesh Eye Hospital" <?php if ($hospital == "Bangladesh Eye Hospital") echo "selected"; ?>>Bangladesh Eye Hospital</option>
-                                <option value="Basundhura Hospital" <?php if ($hospital == "Basundhura Hospital") echo "selected"; ?>>Basundhura Hospital</option>
-                                <option value="Dhaka Medical College" <?php if ($hospital == "Dhaka Medical College") echo "selected"; ?>>Dhaka Medical College</option>
-                            </select>
-                        </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

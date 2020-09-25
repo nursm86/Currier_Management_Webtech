@@ -2,7 +2,8 @@
     session_start();
     include ('header.php');
     include ('adminnavbar.php');
-    include ('adminsidebar.php')
+	include ('adminsidebar.php');
+	require_once 'controllers/BranchController.php';
 ?>
 <div class="patientprofile">
     <div class="d-flex justify-content-center align-items-center container ">
@@ -13,14 +14,14 @@
 		<form action="" method="post">
 				<div class="form-group">
 					<label>Branch Name:</label>
-					<input type="text" class="form-control" name="B_name"value="" required>
+					<input type="text" class="form-control" name="B_name"value="">
 				</div>
 				<div class="form-group">
 					<label>Address:</label>
-					<input type="text" class="form-control" name="B_address"value="" required>
+					<input type="text" class="form-control" name="B_address"value="">
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-primary" name="newebranch" value="Add New Branch">
+					<input type="submit" class="btn btn-primary" name="addnewebranch" value="Add New Branch">
 				</div>
 		</form>
 		</div>

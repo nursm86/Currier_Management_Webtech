@@ -3,6 +3,8 @@
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
+    require_once 'controllers/CustomerController.php';
+    $customers = getUnVerifiedCustomers();
 ?>
     <div class="donorlist">
     
@@ -28,7 +30,6 @@
 
             <div class="row ">
 
-
             <table class="table" id="myTable">
                 <thead>
                     <tr>
@@ -43,30 +44,13 @@
                 <tbody>
                     <div class="col-md-8">
                     <?php
-                        $servername = "localhost";
-                        $username = "root";
-                        $pass = "";
-                        $dbname = "web_tech";
-                            
-                        $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                        $sql = "SELECT * FROM customers";
-
-                        $verify = mysqli_query($conn, $sql);
-                        
-                        while($var = mysqli_fetch_assoc($verify)){
+                        foreach($customers as $customer){
                             echo "<tr>";
-                            echo "<td>".$var['Name']."</td>";
-                            if($var['Gender'] == 0){
-                                echo "<td>"."Male"."</td>";
-                            }
-                            else{
-                                echo "<td>"."Male"."</td>";
-                            }
-                            echo "<td>".$var['ContactNo']."</td>";
-                            echo "<td>".$var['Address']."</td>";
-                            echo '<td><input type="submit" class="btn btn-success" value="Accept" name="accept" id=""></td>';
-                            echo '<td><input type="submit" class="btn btn-danger" value="Delete" name="delete" id=""></td>';
+                            echo "<td>".$customer['name']."</td>";
+                            echo "<td>".$customer['email']."</td>";
+                            echo "<td>".$customer['phone']."</td>";
+                            echo "<td>".$customer['address']."</td>";
+                            echo '<td><a href="verifyCustomer.php?id='.$customer["id"].'" class="btn btn-warning">View</a></td>';
                             echo "</tr>";
                         }
                     ?>

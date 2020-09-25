@@ -2,8 +2,12 @@
     session_start();
     include('header.php');
     include('employeenavbar.php');
+    require_once 'controllers/ProductController.php';
+    $rfromCs = getfromCustomer($_SESSION['id']);
+    $rfromOBs = getfromBranch($_SESSION['id']);
     include('employeesidebar.php');
 ?>
+
 
 <div class="donorlist">
     
@@ -21,7 +25,7 @@
                     <td>Sending Date</td>
                     <td>Reciever Name</td>
                     <td>Address</td>
-                    <td>Product State</td>
+                    <td>Reciever Contact</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -29,64 +33,17 @@
                 <tbody>
                     <div class="col-md-8">
                 <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $pass = "";
-                    $dbname = "web_tech";
-                        
-                    $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                    $sql = "SELECT * FROM product where customer_Id = '1' and (Product_State = '0' or Product_State = '1')";
-
-                    $verify = mysqli_query($conn, $sql);
-                    
-                    while($var = mysqli_fetch_assoc($verify)){
+                   foreach($rfromCs as $rfromC){
                         echo "<tr>";
-                        if($var['Sending_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        if($var['Receiving_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        echo "<td>".$var['Received_Date']."</td>";
-
-                        echo "<td>".$var['ReceiverName']."</td>";
-                        
-                        
-                        echo "<td>".$var['ReceiverAddress']."</td>";
-                        if($var['Product_State'] == 0){
-                            echo "<td>"."Not Yet Received at the Branch"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Ready for Shipping"."</td>";
-                        }
-                        echo '<td><input type="submit" class="btn btn-success" value="Accept" name="accept" id=""></td>';
-                        echo '<td><input type="submit" class="btn btn-danger" value="Cancel" name="cancel" id=""></td>';
+                        echo "<td>".$rfromC['sbName']."</td>";
+                        echo "<td>".$rfromC['rbName']."</td>";
+                        echo "<td>".$rfromC['date']."</td>";
+                        echo "<td>".$rfromC['rname']."</td>";
+                        echo "<td>".$rfromC['raddress']."</td>";
+                        echo "<td>".$rfromC['phone']."</td>";
+                        echo '<td><a href="receivefromCustomer.php?id='.$rfromC["id"].'" class="btn btn-warning">View</a></td>';
                         echo "</tr>";
                     }
-                
                 ?>
                 </tbody>
             </table>
@@ -107,66 +64,23 @@
                     <td>Sending Date</td>
                     <td>Reciever Name</td>
                     <td>Address</td>
-                    <td>Product State</td>
+                    <td>Contact Number</td>
                     <td></td>
                 </tr>
                 </thead>
                 <tbody>
                     <div class="col-md-8">
                 <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $pass = "";
-                    $dbname = "web_tech";
-                        
-                    $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                    $sql = "SELECT * FROM product where customer_Id = '1' and (Product_State = '2' or Product_State = '3')";
-
-                    $verify = mysqli_query($conn, $sql);
                     
-                    while($var = mysqli_fetch_assoc($verify)){
+                    foreach($rfromOBs as $rfromOB){
                         echo "<tr>";
-                        if($var['Sending_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-                        if($var['Receiving_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        echo "<td>".$var['Received_Date']."</td>";
-                        echo "<td>".$var['ReceiverName']."</td>";
-                        
-                        
-                        echo "<td>".$var['ReceiverAddress']."</td>";
-                        if($var['Product_State'] == 2){
-                            echo "<td>"."Shipped on the way to destination"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Reached to Destination Branch"."</td>";
-                        }
-                        echo '<td><input type="submit" class="btn btn-success" value="Accept" name="accept" id=""></td>';
-                        echo '<td><input type="submit" class="btn btn-danger" value="Cancel" name="cancel" id=""></td>';
+                        echo "<td>".$rfromOB['sbName']."</td>";
+                        echo "<td>".$rfromOB['rbName']."</td>";
+                        echo "<td>".$rfromOB['date']."</td>";
+                        echo "<td>".$rfromOB['rname']."</td>";
+                        echo "<td>".$rfromOB['raddress']."</td>";
+                        echo "<td>".$rfromOB['phone']."</td>";
+                        echo '<td><a href="deleteCustomer.php?id='.$rfromOB["id"].'" class="btn btn-warning">View</a></td>';
                         echo "</tr>";
                     }
                 

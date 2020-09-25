@@ -1,10 +1,12 @@
 <?php
+	session_start();
 	require_once 'models/db_connect.php';
 	$uname = "";
 	$err_uname="";
 	$password = "";
 	$err_password = "";
-	$hasError=false;
+	$loginError="";
+	$has_error=false;
 	if(isset($_POST["login"])){
 		if(empty($_POST["username"]))
 		{
@@ -20,29 +22,34 @@
 		}else{
 			$password=$_POST["password"];
 		}
-		if(!$hasError){
+		if(!$has_error){
 			$var = authenticate($uname,$password);
 			if($var){
 				if($var[0]["type"] == "0"){
 					header("Location: admin_home.php");
 					setcookie("Loggedinuser",$uname,time()+60);
 					setcookie("type",$var["type"],time()+60);
+					$_SESSION["id"] = $var[0]['id'];
 				}
 				else if($var[0]["type"] == "2"){
-					header("Location: customer_home.php");
-					setcookie("Loggedinuser",$uname,time()+60);
-					setcookie("type",$var["type"],time()+60);
+					if($var[0]['isValid']){
+						header("Location: customer_home.php");
+						setcookie("Loggedinuser",$uname,time()+60);
+						setcookie("type",$var["type"],time()+60);
+						$_SESSION["id"] = $var[0]['id'];
+					}
+					else{
+						$loginError = "You are not verfied yet!!!Please Wait";
+					}
 				}
 				else if($var[0]["type"] == "1"){
 					header("Location: employee_home.php");
 					setcookie("Loggedinuser",$uname,time()+60);
 					setcookie("type",$var["type"],time()+60);
-				}
-				else{
-					echo " Unknown Users Cannot Login";
+					$_SESSION["id"] = $var[0]['id'];
 				}
 			}else{
-				echo "Username password invalid";
+				$loginError = "User name or password is Invalid";
 			}
 		}
 	}

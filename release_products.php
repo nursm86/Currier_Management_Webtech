@@ -3,6 +3,8 @@
     include('header.php');
     include('employeenavbar.php');
     include('employeesidebar.php');
+    require_once 'controllers/ProductController.php';
+    $releaseableProducts = getReleaseableProducts($_SESSION['id']);
 ?>
 
 
@@ -47,61 +49,16 @@
                 <tbody>
                     <div class="col-md-8">
                 <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $pass = "";
-                    $dbname = "web_tech";
-                        
-                    $conn = mysqli_connect($servername,$username,$pass,$dbname);
-
-                    $sql = "SELECT * FROM product where customer_Id = '1' and (Product_State = '0' or Product_State = '1')";
-
-                    $verify = mysqli_query($conn, $sql);
-                    
-                    while($var = mysqli_fetch_assoc($verify)){
+                    foreach($releaseableProducts as $releaseableProduct){
                         echo "<tr>";
-                        if($var['Sending_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Sending_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        if($var['Receiving_B_id'] == 0){
-                            echo "<td>"."Motijhil"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 1){
-                            echo "<td>"."Jatrabari"."</td>";
-                        }
-                        else if($var['Receiving_B_id'] == 2){
-                            echo "<td>"."Khulna"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Cumilla"."</td>";
-                        }
-
-
-                        echo "<td>".$var['Received_Date']."</td>";
-
-                        echo "<td>".$var['ReceiverName']."</td>";
-                        
-                        
-                        echo "<td>".$var['ReceiverAddress']."</td>";
-                        if($var['Product_State'] == 0){
-                            echo "<td>"."Not Yet Received at the Branch"."</td>";
-                        }
-                        else{
-                            echo "<td>"."Ready for Shipping"."</td>";
-                        }
-                        echo '<td><input type="submit" class="btn btn-success" value="Release" name="release" id=""></td>';
-                        echo '<td><input type="submit" class="btn btn-danger" value="Cancel" name="Cancel" id=""></td>';
+                        echo "<td>".$releaseableProduct['sbName']."</td>";
+                        echo "<td>".$releaseableProduct['rbName']."</td>";
+                        echo "<td>".$releaseableProduct['date']."</td>";
+                        echo "<td>".$releaseableProduct['rname']."</td>";
+                        echo "<td>".$releaseableProduct['raddress']."</td>";
+                        echo "<td>".$releaseableProduct['phone']."</td>";
+                        echo '<td><input type="submit" class="btn btn-success" value="Relelase" name="relelase" id=""></td>';
+                        echo '<td><input type="submit" class="btn btn-danger" value="Cancel" name="cancel" id=""></td>';
                         echo "</tr>";
                     }
                 
