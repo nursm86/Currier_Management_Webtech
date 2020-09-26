@@ -216,7 +216,7 @@
 		}
 
 	function getEmployee($id){
-		$sql = "SELECT c.userId as id,c.Name as name,u.emailAddress as email,c.Branch_id as bid,c.Salary as salary,c.Bonus as bonus, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and c.userId = $id";
+		$sql = "SELECT u.image as image, c.userId as id,c.Name as name,u.emailAddress as email,c.Branch_id as bid,c.Salary as salary,c.Bonus as bonus, c.ContactNo as phone,c.Address as address ,c.JoiningDate as jdate,c.DOB as dob,c.Designation as desig, c.Qualification as qualification from users as u, employee as c where u.id = c.userId and c.userId = $id";
 		return getArray($sql);
 	}
 

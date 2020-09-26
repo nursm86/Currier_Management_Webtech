@@ -149,13 +149,6 @@
                 $has_error = true;
                 $err_contact = "contact Number Should be 11 in length.";
 			}
-			
-			/*$sql = "SELECT * FROM users where emailAddress = '$email'";
-			if(getArray($sql)){
-                $has_error = true;
-                $err_email = "Email is already used!!! try different email";
-                $email = "";
-            }*/
 		}
 
 		if(empty($_POST["address"]))
@@ -175,8 +168,11 @@
 		}
 
 		if(!$has_error){
+			$target_dir ="storage/profile_pic/";
+			$target_file = $target_dir . basename($_FILES["image"]["name"]);
+			move_uploaded_file($_FILES["image"]["tmp_name"],$target_file);
 			$date = date('Y/m/d H:i:s');
-			$sql = "INSERT INTO users VALUES (NULL,'$uname','$email','$pass','$date',2,FALSE)";
+			$sql = "INSERT INTO users VALUES (NULL,'$uname','$email','$pass','$date',2,FALSE,'$target_file')";
 			execute($sql);
 
 			$sql ="SELECT id from users where userName = '$uname'";
@@ -524,7 +520,7 @@
 
 
 	function getCustomer($id){
-		$sql = "SELECT c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address,c.sequrity_Que as sq from users as u, customers as c where u.id = c.userId and c.userId = $id";
+		$sql = "SELECT u.image as image, c.Name as name,u.emailAddress as email, c.ContactNo as phone,c.Address as address,c.sequrity_Que as sq from users as u, customers as c where u.id = c.userId and c.userId = $id";
 		return getArray($sql);
 	}
 

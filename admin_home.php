@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-4 box">
                         <div class="well">
-                            <img src="system_images/ronaldo.jpg" class="doc-img">
+                            <img src="<?php echo $admin[0]['image']?>" class="doc-img">
                             <div class="btn-group">
                                 
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>

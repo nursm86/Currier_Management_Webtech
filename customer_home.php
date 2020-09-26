@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-4 box">
             <div class="well">
-                <img src="<?php $image = "system_images/neymar.jpg"; echo $image; ?> " class="doc-img">
+                <img src="<?php echo $customer[0]['image']?> " class="doc-img">
                 <div class="btn-group">
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>

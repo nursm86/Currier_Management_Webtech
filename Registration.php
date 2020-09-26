@@ -41,7 +41,7 @@
 			<div class="form-group">
 					<span><?php echo $success;?></span>
 				</div>
-		<form action="" method="post" onsubmit="return validateForm()">
+		<form action="" method="post" onsubmit="return validateForm()" enctype ="multipart/form-data"> 
 			<table>
 				<div class="form-group">
 					<label>Name:</label>
@@ -83,6 +83,12 @@
 					<input type="text" class="form-control" id="sq" name="securityQue"value="<?php echo $sq;?>" placeholder = "Who is your best friend?">
 					<span id="err_sq" style="color:red;"><?php echo $err_sq;?></span>
 				</div>
+
+				<div class="form-group">
+                        <label for="image">Picture</label>
+						<input type="file" name ="image" class="form-control" id="imagre">        
+                </div>
+
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" name="Register" value="Register">
 				</div>
