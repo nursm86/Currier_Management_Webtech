@@ -15,7 +15,7 @@
             <h1 class="text-white bg-dark text-center">
                 Add New Worker
             </h1>
-		<form action="" method="post">
+		<form action="" method="post" enctype ="multipart/form-data">
 				<div class="form-group">
 					<label>UserName:</label>
 					<input type="text" class="form-control" name="uname" value="<?php echo $uname;?>" required>
@@ -61,6 +61,10 @@
 					<input type="text" class="form-control" name="salary"value="<?php echo $salary;?>" required>
                     <span style="color:red;"><?php echo $err_salary;?></span>
 				</div>
+                <div class="form-group">
+                        <label for="image">Picture</label>
+						<input type="file" name ="image" class="form-control" id="imagre">        
+                </div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" name="newemployee" value="Add New Employee">
 				</div>

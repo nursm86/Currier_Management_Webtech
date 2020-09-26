@@ -207,7 +207,6 @@
 					$sql = "UPDATE `users` SET pass = '$npass',`updatedDate`= '$date' WHERE id = $id";
 					execute($sql);
 				}
-
 			}
 			else{
 				$err_pass = "Password is not Correct!!!";
@@ -369,8 +368,11 @@
 		}
 
 		if(!$has_error){
+			$target_dir ="storage/profile_pic/";
+			$target_file = $target_dir . basename($_FILES["image"]["name"]);
+			move_uploaded_file($_FILES["image"]["tmp_name"],$target_file);
 			$date = date('Y/m/d H:i:s');
-			$sql = "INSERT INTO users VALUES (NULL,'$uname','$email','$pass','$date',1,FALSE)";
+			$sql = "INSERT INTO users VALUES (NULL,'$uname','$email','$pass','$date',1,FALSE,'$target_file')";
 			execute($sql);
 
 			$sql ="SELECT id from users where userName = '$uname'";
